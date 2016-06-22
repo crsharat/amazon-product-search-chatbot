@@ -11,7 +11,7 @@ def parse(keyword,headers):
     keyword = findall("search amazon (.*)",keyword.lower())
     keyword = keyword[0].strip().title() if keyword else None
     search_url = 'http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias=aps&field-keywords=%s'%keyword.replace(" ","+")
-    response = get(url,headers=headers)
+    response = get(search_url,headers=headers)
     parser = html.fromstring(response.content,response.url)
     finalData = []
     results = parser.xpath('//li[contains(@class,"s-result-item") and not(contains(@class,"s-hidden-sponsored-item"))]')
