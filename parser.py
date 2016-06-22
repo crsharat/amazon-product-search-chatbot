@@ -12,16 +12,16 @@ def parse(keyword,headers):
     keyword = keyword[0].strip().title() if keyword else None
     search_url = 'http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias=aps&field-keywords=%s'%keyword.replace(" ","+")
     response = get(url,headers=headers)
-    parser = html(response.content,response.url)
+    parser = html.fromstring(response.content,response.url)
     finalData = []
     results = parser.xpath('//li[contains(@class,"s-result-item") and not(contains(@class,"s-hidden-sponsored-item"))]')
-    for i in results[:3]:
+    for i in results[:5]:
         imageUrl = i.xpath('.//img/@src')
         imageUrl = imageUrl[0] if imageUrl else None
         url = i.xpath('.//a/h2/parent::a/@href')
         url = url[0] if url else None
-        prodName = i.xpath('.//a/h2')
-        prodName = prodName[0].extract_text() if prodName else None
+        prodName = i.xpath('.//a/h2/text()')
+        prodName = prodName[0].strip() if prodName else None
         item = {
                     "imageUrl":imageUrl,
                     "url":url,
