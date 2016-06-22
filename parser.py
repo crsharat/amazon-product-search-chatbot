@@ -5,17 +5,12 @@ from requests import get
 from json import dumps
 from sys import argv
 from datetime import datetime
-def parse(keyword,headers):
 
-    response = get('https://www.amazon.com',headers=headers)
-    parser = html(response.content,response.url)
+
+def parse(keyword,headers):
     keyword = findall("search amazon (.*)",keyword.lower())
     keyword = keyword[0].strip().title() if keyword else None
     search_url = 'http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias=aps&field-keywords=%s'%keyword.replace(" ","+")
-    data = parse_results(search_url,headers=headers)
-    return data,keyword
-
-def parse_results(url,headers):
     response = get(url,headers=headers)
     parser = html(response.content,response.url)
     finalData = []
@@ -33,7 +28,7 @@ def parse_results(url,headers):
                     "prodName":prodName
         }
         finalData.append(item)
-    return finalData
+    return finalData,keyword
 
 if __name__ == '__main__':
     headers = {
