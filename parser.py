@@ -15,7 +15,7 @@ def parse(keyword,headers):
     parser = html.fromstring(response.content,response.url)
     finalData = []
     results = parser.xpath('//li[contains(@class,"s-result-item") and not(contains(@class,"s-hidden-sponsored-item"))]')
-    for i in results[:5]:
+    for i in results[:1]:
         imageUrl = i.xpath('.//img/@src')
         imageUrl = imageUrl[0] if imageUrl else None
         url = i.xpath('.//a/h2/parent::a/@href')
