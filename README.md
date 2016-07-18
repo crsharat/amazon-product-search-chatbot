@@ -1,2 +1,2 @@
-# turbo-telegram
-Will scrape top 5 amazon product and provide the results in facebook messenger
+# Amazon Product Search Chatbot
+Will scrape top amazon product and provide the results in facebook messenger
